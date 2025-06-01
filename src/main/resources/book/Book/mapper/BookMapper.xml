@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book.Book.mapper.BookMapper">
+
+    <resultMap id="BookResultMap" type="book.Book.book.domain.Book">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="author" column="author"/>
+        <result property="publisher" column="publisher"/>
+        <result property="isbn" column="isbn"/>
+        <result property="price" column="price"/>
+        <result property="amount" column="amount"/>
+        <result property="bookStatus" column="book_status"/>
+    </resultMap>
+
+    <insert id="insertBook" parameterType="book.Book.book.domain.Book" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO book (title, author, publisher, isbn, price, amount, book_status)
+        VALUES (#{title}, #{author}, #{publisher}, #{isbn}, #{price}, #{amount}, #{bookStatus})
+    </insert>
+
+    <select id="findByIsbn" resultType="book.Book.book.domain.Book">
+        SELECT * FROM book WHERE isbn = #{isbn}
+    </select>
+
+    <select id="getBookTitleById" resultType="String">
+        SELECT title
+        FROM book
+        WHERE id = #{bookId}
+    </select>
+
+    <update id="updateBook" parameterType="book.Book.book.domain.Book">
+        UPDATE book
+        SET
+        title = #{title},
+        author = #{author},
+        publisher = #{publisher},
+        price = #{price},
+        amount = #{amount},
+        book_status = #{bookStatus}
+        WHERE id = #{id}
+    </update>
+
+    <select id="findById" resultMap="BookResultMap">
+        SELECT * FROM book WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="BookResultMap">
+        SELECT * FROM book
+    </select>
+
+
+</mapper>

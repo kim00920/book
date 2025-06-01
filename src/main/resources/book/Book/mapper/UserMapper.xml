@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book.Book.mapper.UserMapper">
+
+    <resultMap id="UserResultMap" type="book.Book.user.domain.User">
+        <result property="loginId" column="login_id"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
+    <select id="findByLoginId" resultMap="UserResultMap">
+        SELECT * FROM user WHERE login_id = #{loginId}
+    </select>
+
+    <select id="findById" resultMap="UserResultMap">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="book.Book.user.domain.User">
+        UPDATE user
+        SET
+        username = #{username},
+        password = #{password},
+        email = #{email},
+        address = #{address},
+        zipcode = #{zipcode},
+        mileage = #{mileage},
+        total_amount = #{totalAmount},
+        role = #{role}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

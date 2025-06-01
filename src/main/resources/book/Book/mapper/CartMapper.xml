@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book.Book.mapper.CartMapper">
+
+    <!-- Cart 전체 컬럼 매핑 -->
+    <resultMap id="CartResultMap" type="book.Book.user.domain.Cart">
+        <id property="id" column="id"/>
+        <result property="bookId" column="book_id"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="totalPrice" column="total_price"/>
+        <result property="createdAt" column="created_at"/>
+        <association property="user" javaType="book.Book.user.domain.User" column="user_id" select="book.Book.mapper.UserMapper.findById"/>
+    </resultMap>
+
+    <!-- 단건 조회: user_id, book_id 로 조회 -->
+    <select id="findByUserIdAndBookId" resultMap="CartResultMap" parameterType="map">
+        SELECT *
+        FROM cart
+        WHERE user_id = #{userId}
+        AND book_id = #{bookId}
+    </select>
+
+    <!-- 전체 조회: 조인된 user 정보 포함 -->
+    <select id="findAllCart" resultMap="CartResultMap">
+        SELECT
+        c.id AS id,
+        c.book_id AS book_id,
+        u.id AS user_id,
+        u.username AS user_username,
+        c.total_amount AS total_amount,
+        c.total_price AS total_price,
+        c.created_at AS created_at
+        FROM cart c
+        JOIN user u ON c.user_id = u.id
+    </select>
+
+    <!-- 특정 사용자(cart.user)로 조회 -->
+    <select id="findAllByUser" parameterType="book.Book.user.domain.User" resultMap="CartResultMap">
+        SELECT *
+        FROM cart
+        WHERE user_id = #{id}
+    </select>
+
+</mapper>

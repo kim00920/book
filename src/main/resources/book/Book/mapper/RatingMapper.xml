@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book.Book.mapper.RatingMapper">
+
+    <resultMap id="RatingResponseMap" type="book.Book.user.dto.RatingResponse">
+        <result property="ratingGroup" column="rating_group" />
+        <result property="userCount" column="user_count" />
+    </resultMap>
+
+    <!-- 별점 그룹별 인원 수 조회 -->
+    <select id="countGroupedRating" resultMap="RatingResponseMap" parameterType="long">
+        SELECT FLOOR(r.score) AS rating_group,
+        COUNT(DISTINCT rev.user_id) AS user_count
+        FROM rating r
+        JOIN review rev ON r.review_id = rev.id
+        WHERE rev.book_id = #{bookId}
+        GROUP BY FLOOR(r.score)
+        ORDER BY rating_group
+    </select>
+
+    <!-- 책의 평균 별점 조회 -->
+    <select id="avgRating" resultType="double" parameterType="long">
+        SELECT ROUND(AVG(r.score), 2)
+        FROM rating r
+        JOIN review rev ON r.review_id = rev.id
+        WHERE rev.book_id = #{bookId}
+    </select>
+
+    <!-- 사용자의 책 별점 조회 -->
+    <select id="findUserRating" resultMap="RatingResponseMap">
+        SELECT FLOOR(r.score) AS rating_group,
+        1 AS user_count
+        FROM rating r
+        JOIN review rev ON r.review_id = rev.id
+        WHERE rev.book_id = #{bookId}
+        AND rev.user_id = #{userId}
+        LIMIT 1
+    </select>
+
+</mapper>

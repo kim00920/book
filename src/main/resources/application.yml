@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: Book
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/20250513book?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  mybatis:
+    config-location: classpath:mybatis-config.xml
+    mapper-locations: classpath:book/Book/mapper/*.xml #xml 위치
+    configuration:
+      map-underscore-to-camel-case: true
+
+kakao:
+  api:
+    key: "d03c7c45767d755661fb86dc778ddcab"
+  logging:
+    level:
+      org.mybatis: DEBUG
+      org.mybatis.spring: DEBUG
+
+

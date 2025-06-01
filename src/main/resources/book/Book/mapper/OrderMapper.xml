@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book.Book.mapper.OrderMapper">
+
+    <!-- 주문 생성 -->
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO orders (
+        user_id, name, zipcode, address, requirement,
+        total_price, used_mileage, order_status,
+        imp_uid, merchant_id, created_at, original_price
+        ) VALUES (
+        #{userId}, #{name}, #{zipcode}, #{address}, #{requirement},
+        #{totalPrice}, #{usedMileage}, #{orderStatus},
+        #{impUid}, #{merchantId}, #{createdAt}, #{originalPrice}
+        )
+    </insert>
+
+    <insert id="insertOrderItems">
+        INSERT INTO order_item ( book_id, book_title, price, quantity, order_price, order_id, user_id )
+        VALUES
+        <foreach collection="orderItems" item="item" separator=",">
+            (
+            #{item.bookId}, #{item.bookTitle}, #{item.price},
+            #{item.quantity}, #{item.orderPrice}, #{orderId}, #{item.userId}
+            )
+        </foreach>
+    </insert>
+
+    <select id="findOrderById" resultType="book.Book.order.domain.Order">
+        SELECT
+        id,
+        user_id AS userId,
+        name,
+        zipcode,
+        address,
+        requirement,
+        total_price AS totalPrice,
+        used_mileage AS usedMileage,
+        order_status AS orderStatus,
+        imp_uid AS impUid,
+        merchant_id AS merchantId,
+        original_price AS originalPrice,
+        created_at AS createdAt
+        FROM orders
+        WHERE id = #{id}
+    </select>
+
+    <update id="orderStatus">
+        UPDATE orders
+        SET order_status = #{orderStatus}
+        WHERE id = #{id}
+    </update>
+
+    <select id="findByUserAndBook" resultType="int">
+        SELECT COUNT(*)
+        FROM orders o
+        JOIN order_item oi ON o.id = oi.order_id
+        WHERE o.user_id = #{userId}
+        AND oi.book_id = #{bookId}
+        AND o.order_status = 'COMPLETE'
+    </select>
+
+    <select id="findOrderItemsByOrderId" resultType="book.Book.order.domain.OrderItem">
+        SELECT
+        id,
+        user_id AS userId,
+        book_id AS bookId,
+        order_id AS orderId,
+        book_title AS bookTitle,
+        price,
+        quantity,
+        order_price AS orderPrice
+        FROM order_item
+        WHERE order_id = #{orderId}
+    </select>
+
+    <select id="findAllOrders" resultType="book.Book.order.domain.Order">
+        SELECT
+        id,
+        user_id AS userId,
+        name,
+        zipcode,
+        address,
+        requirement,
+        total_price AS totalPrice,
+        used_mileage AS usedMileage,
+        order_status AS orderStatus,
+        imp_uid AS impUid,
+        merchant_id AS merchantId,
+        original_price AS originalPrice,
+        created_at AS createdAt
+        FROM orders
+    </select>
+
+    <select id="findOrderItemsByOrderIds" resultType="book.Book.order.domain.OrderItem">
+        SELECT
+        id,
+        user_id AS userId,
+        book_id AS bookId,
+        order_id AS orderId,
+        book_title AS bookTitle,
+        price,
+        quantity,
+        order_price AS orderPrice
+        FROM order_item
+        WHERE order_id IN
+        <foreach collection="orderIds" item="orderId" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+    </select>
+
+
+    <select id="findOrdersByUserId" resultType="book.Book.order.domain.Order">
+        SELECT
+        id,
+        user_id AS userId,
+        name,
+        zipcode,
+        address,
+        requirement,
+        total_price AS totalPrice,
+        used_mileage AS usedMileage,
+        order_status AS orderStatus,
+        imp_uid AS impUid,
+        merchant_id AS merchantId,
+        original_price AS originalPrice,
+        created_at AS createdAt
+        FROM orders
+        WHERE user_id = #{userId}
+        ORDER BY created_at DESC
+    </select>
+
+
+</mapper>
