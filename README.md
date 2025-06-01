@@ -14,10 +14,21 @@
 - BuildTool : Gradle
 - DB : MySQL
 
+# ERD
+
+
+
 # API 설계
+<img src="https://github.com/user-attachments/assets/61f0071f-ca23-482d-b99d-c5b31d0c8577"/>
+<img src="https://github.com/user-attachments/assets/5cd6b073-0e26-4a02-baf8-5744e72b32f6"/>
+<img src="https://github.com/user-attachments/assets/a5b0ccc0-2c4f-4e5f-b192-7b7303e1a7a7"/>
+<img src="https://github.com/user-attachments/assets/ca703ad4-1363-47cc-877c-b0fefc4d3e03"/>
+<img src="https://github.com/user-attachments/assets/6b0f1886-c9e7-433a-9d04-5614fadf083f"/>
+<img src="https://github.com/user-attachments/assets/6411a4b5-399e-4bda-939e-95d0e7dc05c7"/>
+<img src="https://github.com/user-attachments/assets/1600162f-4b57-4be3-b516-2d5ac00d32c5"/>
 
 # 프로젝트 구조
-
+<img src="https://github.com/user-attachments/assets/7496a76d-190f-4152-adae-bc9496f26a20"/>
 
 # 프로젝트 기능
 
@@ -113,6 +124,38 @@
 </details>
 
 # 테스트 진행
+Mockito + Junit5 을 통해서 단위테스트로 진행했습니다.
+
+
+<details>
+<summary>테스트</summary>
+
+- 회원(User)<br>
+  <img src="https://github.com/user-attachments/assets/84d41d85-9b11-4cbb-8d27-dc00c0eddabb"/>
+
+
+- 책(Book)<br>
+  <img src="https://github.com/user-attachments/assets/e9a03ef6-ac03-4c48-889c-2870c74cce2a"/>
+
+- 장바구니(Cart)<br>
+  <img src="https://github.com/user-attachments/assets/ba33ff20-18ec-42a2-bb5b-589adeab665b"/>
+
+- 주문(Order)<br>
+  <img src="https://github.com/user-attachments/assets/2aa7db97-8cc3-4631-a7bd-e214768eb44a"/>
+
+- 결제(Pay)<br>
+  <img src="https://github.com/user-attachments/assets/90820a01-332b-47fe-8f54-0fa902697399"/>
+
+- 리뷰(Review)<br>
+  <img src="https://github.com/user-attachments/assets/21f0514e-89da-4c6e-b72e-ac189e473e80"/>
+
+  
+- 별점(Rating)<br>
+  <img src="https://github.com/user-attachments/assets/d6876f50-5328-4d45-b426-1d5f531eef17"/>
+
+
+
+</details>
 
 # 느낀점
 
