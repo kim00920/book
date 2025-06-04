@@ -3,23 +3,21 @@ spring:
     name: Book
 
   datasource:
-    url: jdbc:mysql://localhost:3306/20250513book?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false
-    username: root
-    password: 1234
+    url: jdbc:mysql://localhost:3306/your_database_name?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false
+    username: your_db_username
+    password: your_db_password
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   mybatis:
     config-location: classpath:mybatis-config.xml
-    mapper-locations: classpath:book/Book/mapper/*.xml #xml 위치
+    mapper-locations: classpath:book/Book/mapper/*.xml #xml 위치임
     configuration:
       map-underscore-to-camel-case: true
 
 kakao:
   api:
-    key: "d03c7c45767d755661fb86dc778ddcab"
+    key: "kakao_api_key"
   logging:
     level:
       org.mybatis: DEBUG
       org.mybatis.spring: DEBUG
-
-
