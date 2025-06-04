@@ -9,13 +9,14 @@
 
 - Language : Java
 - JDK : 17
-- Framework : Spring 6.2.5 , SpringBoot 3.4.4
+- Framework : Spring 6.2.5, SpringBoot 3.4.4
 - Library :  Spring Security
 - BuildTool : Gradle
 - DB : MySQL
 
 # ERD
-
+<img src="https://github.com/user-attachments/assets/093fae6a-9bc7-4da6-be31-f7ce38272791"/>
+<img src="https://github.com/user-attachments/assets/448e50ea-12ea-473b-890a-e3d71882e729"/>
 
 
 # API 설계
